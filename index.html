@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Rock Paper Scissors - Tykejmi</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="heading">
+          <p>Rock</p>
+          <p>Paper</p>
+          <p>Scissors</p>
+        </div>
+        <div class="score">
+          <p class="score-text">Score</p>
+          <p class="score-number">0</p>
+        </div>
+      </header>
+
+      <div class="game">
+        <div class="side">
+          <p class="side-p">You picked</p>
+          <img
+            class="game-img paperClass"
+            game-img
+            paper
+            src="imgs/icon-paper.svg"
+            alt=""
+          />
+          <img
+            class="game-img rockClass"
+            game-img
+            rock
+            src="imgs/icon-rock.svg"
+            alt=""
+          />
+          <img
+            class="game-img scissClass"
+            game-img
+            sciss
+            src="imgs/icon-scissors.svg"
+            alt=""
+          />
+        </div>
+        <div class="result">
+          <h2 class="result-heading"></h2>
+          <button class="result-button">play again?</button>
+        </div>
+        <div class="side">
+          <p class="side-p">The house picked</p>
+          <img class="game-img hiddenImg" game-img alt="" />
+        </div>
+      </div>
+      <div class="rules">rules</div>
+      <div class="rules-img"></div>
+    </div>
+    <script src="js.js"></script>
+  </body>
+</html>
