@@ -179,10 +179,10 @@ header {
 
 /* PLAYED STATE  */
 
-.hiddenImg {
+.hidden-img {
   display: none;
 }
-.hiddenImg:hover {
+.hidden-img:hover {
   padding: 2.5rem;
 }
 

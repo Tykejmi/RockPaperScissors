@@ -1,52 +1,54 @@
+
 ///  DOM VARIABLES
-let paper = document.querySelector("[paper]");
-let rock = document.querySelector("[rock]");
-let sciss = document.querySelector("[sciss]");
-let gameDiv = document.querySelector(".game");
-let imgs = document.querySelectorAll("[game-img]");
-let hiddenImg = document.querySelector(".hiddenImg");
-let sidePs = document.querySelectorAll(".side-p");
-let resultHeading = document.querySelector(".result-heading");
-let result = document.querySelector(".result");
-let resultButton = document.querySelector(".result-button");
-let scoreNumber = document.querySelector(".score-number");
-let rulesButton = document.querySelector(".rules");
-let rulesImg = document.querySelector(".rules-img");
+const PAPER = document.querySelector("[paper]");
+const ROCK = document.querySelector("[rock]");
+const GAME_DIV = document.querySelector(".game");
+const GAME_IMGS = document.querySelectorAll("[game-img]");
+const HIDDEN_IMG = document.querySelector(".hidden-img");
+const SIDE_P = document.querySelectorAll(".side-p");
+const RESULT_HEADING = document.querySelector(".result-heading");
+const RESULT = document.querySelector(".result");
+const RESULT_BTN = document.querySelector(".result-button");
+const SCORE_NUMBER = document.querySelector(".score-number");
+const RULES_BTN = document.querySelector(".rules");
+const RULES_IMG = document.querySelector(".rules-img");
 // GLOBAL VARIABLES
 let winStreak = 0;
 let resultText = "";
 
+
+
 startGame();
 function startGame() {
-  imgs.forEach((img) => {
+  GAME_IMGS.forEach((img) => {
     img.addEventListener("click", clickHandler);
   });
 }
 
 function clickHandler(e) {
-  target = e.target;
-  randomNumRes = randomNum();
-  imgs.forEach((img) => {
+  let target = e.target;
+  let randomNumRes = randomNum();
+  GAME_IMGS.forEach((img) => {
     img.removeEventListener("click", clickHandler);
   });
 
-  addStyles();
-  enemyTurn();
+  addStyles(target);
+  enemyTurn(randomNumRes,target);
   setResColor();
 }
 
-function addStyles() {
+function addStyles(target) {
   target.classList.add("img-played");
-  gameDiv.classList.add("played");
-  result.classList.add("result-show");
-  hiddenImg.classList.add("notHiddenAnymore");
+  GAME_DIV.classList.add("played");
+  RESULT.classList.add("result-show");
+  HIDDEN_IMG.classList.add("notHiddenAnymore");
 
-  sidePs.forEach((sideP) => {
+  SIDE_P.forEach((sideP) => {
     sideP.classList.add("side-p-show");
   });
 
-  imgs.forEach((img) => {
-    if (img != target && target.classList.contains("hiddenImg") == false) {
+  GAME_IMGS.forEach((img) => {
+    if (img != target && target.classList.contains("hidden-img") == false) {
       img.classList.add("hidden");
     }
   });
@@ -56,30 +58,29 @@ function randomNum() {
   return Math.floor(Math.random() * 3) + 1;
 }
 
-function enemyTurn() {
+function enemyTurn(randomNumRes,target) {
   if (randomNumRes == 1) {
-    setPaper();
+    setPaper(target);
   } else if (randomNumRes == 2) {
-    setRock();
+    setRock(target);
   } else {
-    setSciss();
+    setSciss(target);
   }
-  resultHeading.classList.add("result-heading-show");
-  resultHeading.innerText = resultText;
-  scoreNumber.innerText = winStreak;
-  hiddenImg.classList.add("img-played");
+  RESULT_HEADING.classList.add("result-heading-show");
+  RESULT_HEADING.innerText = resultText;
+  SCORE_NUMBER.innerText = winStreak;
+  HIDDEN_IMG.classList.add("img-played");
 }
 
-function setPaper() {
-  console.log("paper funkce")
-  hiddenImg.src = "imgs/icon-paper.svg";
-  hiddenImg.classList.add("paperClass");
+function setPaper(target) {
+  HIDDEN_IMG.src = "imgs/icon-paper.svg";
+  HIDDEN_IMG.classList.add("paperClass");
 
-  if (target == paper) {
+  if (target == PAPER) {
     resultText = "DRAW";
-  } else if (target == rock) {
+  } else if (target == ROCK) {
     resultText = "LOST";
-    hiddenImg.classList.add("animace");
+    HIDDEN_IMG.classList.add("animace");
   } else {
     resultText = "WIN";
     target.classList.add("animace");
@@ -87,31 +88,29 @@ function setPaper() {
   }
 }
 
-function setRock() {
-  console.log("rockfunkce")
-  hiddenImg.src = "imgs/icon-rock.svg";
-  hiddenImg.classList.add("rockClass");
+function setRock(target) {
+  HIDDEN_IMG.src = "imgs/icon-rock.svg";
+  HIDDEN_IMG.classList.add("rockClass");
 
-  if (target == paper) {
+  if (target == PAPER) {
     resultText = "WIN";
     target.classList.add("animace");
     winStreak++;
-  } else if (target == rock) {
+  } else if (target == ROCK) {
     resultText = "DRAW";
   } else {
     resultText = "LOST";
-    hiddenImg.classList.add("animace");
+    HIDDEN_IMG.classList.add("animace");
   }
 }
-function setSciss() {
-  console.log("sciss funkce")
-  hiddenImg.src = "imgs/icon-scissors.svg";
-  hiddenImg.classList.add("scissClass");
+function setSciss(target) {
+  HIDDEN_IMG.src = "imgs/icon-scissors.svg";
+  HIDDEN_IMG.classList.add("scissClass");
 
-  if (target == paper) {
+  if (target == PAPER) {
     resultText = "LOST";
-    hiddenImg.classList.add("animace");
-  } else if (target == rock) {
+    HIDDEN_IMG.classList.add("animace");
+  } else if (target == ROCK) {
     resultText = "WIN";
     target.classList.add("animace");
     winStreak++;
@@ -122,41 +121,41 @@ function setSciss() {
 
 function setResColor() {
   if (resultText == "DRAW") {
-    resultHeading.style.color = "pink";
+    RESULT_HEADING.style.color = "pink";
   } else if (resultText == "WIN") {
-    resultHeading.style.color = "green";
+    RESULT_HEADING.style.color = "green";
   } else {
-    resultHeading.style.color = "red";
+    RESULT_HEADING.style.color = "red";
   }
 }
 
-resultButton.addEventListener("click", resetFunc);
+RESULT_BTN.addEventListener("click", resetFunc);
 
 function resetFunc() {
   startGame();
   resultText = "";
-  resultHeading.innerText = resultText;
-  resultHeading.classList.remove("opacity-on");
-  resultHeading.style.color = "white";
-  result.classList.remove("result-show");
-  hiddenImg.src = "";
-  hiddenImg.classList.remove("notHiddenAnymore");
-  hiddenImg.classList.remove("rockClass");
-  hiddenImg.classList.remove("scissClass");
-  hiddenImg.classList.remove("paperClass")
+  RESULT_HEADING.innerText = resultText;
+  RESULT_HEADING.classList.remove("opacity-on");
+  RESULT_HEADING.style.color = "white";
+  RESULT.classList.remove("result-show");
+  HIDDEN_IMG.src = "";
+  HIDDEN_IMG.classList.remove("notHiddenAnymore");
+  HIDDEN_IMG.classList.remove("rockClass");
+  HIDDEN_IMG.classList.remove("scissClass");
+  HIDDEN_IMG.classList.remove("paperClass")
 
-  imgs.forEach((img) => {
+  GAME_IMGS.forEach((img) => {
     img.classList.remove("animace");
     img.classList.remove("img-played");
     img.classList.remove("hidden");
   });
-  gameDiv.classList.remove("played");
+  GAME_DIV.classList.remove("played");
 
-  sidePs.forEach((sideP) => {
+  SIDE_P.forEach((sideP) => {
     sideP.classList.remove("side-p-show");
   });
 }
 
-rulesButton.addEventListener("click", () => {
-  rulesImg.classList.toggle("rules-img-on");
+RULES_BTN.addEventListener("click", () => {
+  RULES_IMG.classList.toggle("rules-img-on");
 });
